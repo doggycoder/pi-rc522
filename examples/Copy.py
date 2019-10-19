@@ -29,24 +29,22 @@ while run:
         print("\nDetected: " + format(data, "02x"))
 
     (error, uid) = rdr.anticoll()
-    aKeyValue = [0xff, 0xff, 0xff, 0xff, 0xff, 0xff]
+    bKeyValue = [0xff, 0xff, 0xff, 0xff, 0xff, 0xff]
     if not error:
         print("Card read UID {:02x}{:02x}{:02x}{:02x}: ".format(uid[0], uid[1], uid[2], uid[3]))
-        if rdr.select_tag(uid):
-            for i in range(16):
-                if rdr.card_auth(rdr.auth_b, i*4+3, aKeyValue, uid):
-                    for j in range(4):
-                        print("data for block {} : \n".format(i*4 + j))
-                        ret, data = rdr.read(i*4 + j)
-                        if ret:
-                            print(data)
-                        else:
-                            print("read error ... ")
-                        print('\n')
-                else:
-                    print("card auth failed! \n")
-        else:
-            print("select tag failed! \n")
+        rdr.select_tag(uid)
+        for i in range(16):
+            if rdr.card_auth(rdr.auth_b, i * 4 + 3, bKeyValue, uid):
+                for j in range(4):
+                    print("data for block {} : \n".format(i * 4 + j))
+                    ret, data = rdr.read(i * 4 + j)
+                    if ret:
+                        print(data)
+                    else:
+                        print("read error ... ")
+                    print('\n')
+            else:
+                print("card auth failed! \n")
 
     time.sleep(1)
 
