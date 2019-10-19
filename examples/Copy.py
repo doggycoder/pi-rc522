@@ -31,8 +31,8 @@ while run:
     (error, uid) = rdr.anticoll()
     aKeyValue = [0xff, 0xff, 0xff, 0xff, 0xff, 0xff]
     if not error:
-        print("Card read UID: "+str(uid[0])+","+str(uid[1])+","+str(uid[2])+","+str(uid[3]))
-        if rdr.select_tag(uid):
+        print("Card read UID {:02x}{:02x}{:02x}{:02x}: ".format(uid[0], uid[1], uid[2], uid[3]))
+        if not rdr.select_tag(uid):
             for i in range(16):
                 if rdr.card_auth(rdr.auth_a, i*4+3, aKeyValue, uid):
                     for j in range(4):
@@ -47,6 +47,8 @@ while run:
                     print("card auth failed! \n")
         else:
             print("select tag failed! \n")
+
+    time.sleep(1)
 
         # print("Setting tag")
         # util.set_tag(uid)
