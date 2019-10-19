@@ -34,7 +34,7 @@ def read_card():
                     for j in range(4):
                         print("data for block {} : ".format(i * 4 + j))
                         ret, data = rdr.read(i * 4 + j)
-                        tempCardData[i * 4 + j] = data
+                        tempCardData.append(data)
                         if not ret:
                             print(data)
                         else:
@@ -71,7 +71,7 @@ def copy_card(dt):
 signal.signal(signal.SIGINT, end_read)
 
 print("Starting")
-tempCardData = [0 for _ in range(64)]
+tempCardData = []
 while run:
     action = '1'
     if len(tempCardData) > 0:
