@@ -78,7 +78,7 @@ while run:
         print("read all data for card : 1  ")
         print("copy {:02x}{:02x}{:02x}{:02x} card : 2  ".format(tempCardData[0][0], tempCardData[0][1],
                                                                 tempCardData[0][2], tempCardData[0][3]))
-        action = input("input the action you want todo ：")
+        action = input("input the action you want todo:")
     if action == '1':
         read_card()
     else:
