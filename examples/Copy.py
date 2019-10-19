@@ -71,7 +71,7 @@ def copy_card(dt):
 signal.signal(signal.SIGINT, end_read)
 
 print("Starting")
-tempCardData = []
+tempCardData = [0 for _ in range(64)]
 while run:
     action = '1'
     if len(tempCardData) > 0:
