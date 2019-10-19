@@ -371,6 +371,14 @@ class RFID(object):
         Writes data to block. You should be authenticated before calling write.
         Returns error state.
         """
+        if block_address == 0:
+            print("try to write block 0")
+            self.halt()
+            self.set_bitmask(0x0D, 0x07)
+            self.card_write(self.mode_transrec, [0x40])
+            self.set_bitmask(0x0D, 0x00)
+            self.card_write(self.mode_transrec, [0x43])
+
         buf = []
         buf.append(self.act_write)
         buf.append(block_address)
