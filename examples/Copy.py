@@ -57,9 +57,10 @@ def copy_card(dt):
         if not rdr.select_tag(uid):
             for i in range(16):
                 if i == 0:
+                    print("try to write block {}".format(dt[0]))
                     ret = rdr.write(0, dt[0])
                     if not ret:
-                        print("write block {}".format(dt[0]))
+                        print("write block success")
                     else:
                         print("write error ... ")
                     if not rdr.card_auth(rdr.auth_b, i * 4 + 3, bKeyValue, uid):
