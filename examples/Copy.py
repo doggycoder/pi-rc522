@@ -55,44 +55,38 @@ def copy_card(dt):
     if not error:
         print("Card read UID {:02x}{:02x}{:02x}{:02x}: ".format(uid[0], uid[1], uid[2], uid[3]))
         if not rdr.select_tag(uid):
-            ret = rdr.write(0, dt[0])
-            print("try to write block {}".format(dt[0]))
-            if not ret:
-                print("write block success")
-            else:
-                print("write error ... ")
-            # for i in range(16):
-            #     if i == 0:
-            #         print("try to write block {}".format(dt[0]))
-            #         ret = rdr.write(0, dt[0])
-            #         if not ret:
-            #             print("write block success")
-            #         else:
-            #             print("write error ... ")
-            #
-            #         if not rdr.card_auth(rdr.auth_b, i * 4 + 3, bKeyValue, uid):
-            #             for j in range(1, 4):
-            #                 ret = rdr.write(i * 4 + j, dt[i * 4 + j])
-            #
-            #                 print("try to write block {}".format(dt[i * 4 + j]))
-            #                 if not ret:
-            #                     print("write block success")
-            #                 else:
-            #                     print("write error ... ")
-            #         else:
-            #             print("card auth failed!")
-            #     else:
-            #         if not rdr.card_auth(rdr.auth_b, i * 4 + 3, bKeyValue, uid):
-            #             for j in range(4):
-            #                 ret = rdr.write(i * 4 + j, dt[i * 4 + j])
-            #
-            #                 print("try to write block {}".format(dt[i * 4 + j]))
-            #                 if not ret:
-            #                     print("write block success")
-            #                 else:
-            #                     print("write error ... ")
-            #         else:
-            #             print("card auth failed!")
+            for i in range(16):
+                if i == 0:
+                    print("try to write block {}".format(dt[0]))
+                    ret = rdr.write(0, dt[0])
+                    if not ret:
+                        print("write block success")
+                    else:
+                        print("write error ... ")
+
+                    if not rdr.card_auth(rdr.auth_b, i * 4 + 3, bKeyValue, uid):
+                        for j in range(1, 4):
+                            ret = rdr.write(i * 4 + j, dt[i * 4 + j])
+
+                            print("try to write block {}".format(dt[i * 4 + j]))
+                            if not ret:
+                                print("write block success")
+                            else:
+                                print("write error ... ")
+                    else:
+                        print("card auth failed!")
+                else:
+                    if not rdr.card_auth(rdr.auth_b, i * 4 + 3, bKeyValue, uid):
+                        for j in range(4):
+                            ret = rdr.write(i * 4 + j, dt[i * 4 + j])
+
+                            print("try to write block {}".format(dt[i * 4 + j]))
+                            if not ret:
+                                print("write block success")
+                            else:
+                                print("write error ... ")
+                    else:
+                        print("card auth failed!")
         else:
             print("select tag failed! ")
 
